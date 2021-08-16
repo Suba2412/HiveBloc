@@ -15,15 +15,18 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<ResponseBloc>(context, listen: true);
+    BlocProvider.of<ResponseBloc>(context).add(ResponseEvent());
 
   }
   BlocApi? blocApiModel;
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<ResponseBloc>(context).add(ResponseEvent());
+    //BlocProvider.of<ResponseBloc>(context).add(ResponseEvent());
 
-    Widget myContent(MyApiState state, blocApiModel){
+    Widget myContent(MyApiState state){
+      if(blocApiModel==null){
+        return Container();
+      }else
       return ListView.builder(
           itemBuilder: (BuildContext context, int index){
             return SingleChildScrollView(
@@ -52,15 +55,19 @@ class _HomePageState extends State<HomePage> {
     return BlocConsumer<ResponseBloc, MyApiState>(
       builder: (context, state){
       return Scaffold(
-        body: SafeArea(child: myContent(state, blocApiModel)),
+        body: SafeArea(child:
+        (state is Loading)? Center(child: CircularProgressIndicator()) :
+        (state is Loaded) ? myContent(state) :
+        (state is Error) ? Center(child: Text(state.error)) :Container()
+        ),
 
+        //how to cretee a hive adapter using terminal
       );
     },
       listener: (context, state) {
+        print("${state.toString()} Syed");
         if(state is Loaded){
           blocApiModel = state.blocApiModel!;
-        }else if(state is Loading){
-          Center(child: CircularProgressIndicator());
         }
       },
     );

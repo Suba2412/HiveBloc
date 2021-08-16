@@ -21,7 +21,8 @@ ApiService apiService = ApiService();
            yield Loaded(blocApiModel);
          }
        }catch(e) {
-         print("Something went wrong");
+         print("$e Something went wrong");
+         yield Error("error");
        }
     }
   }
