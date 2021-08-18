@@ -26,29 +26,7 @@ ApiService apiService = ApiService();
        }
     }
   }
-/*
-// Api service
-  String url ="https://jsonplaceholder.typicode.com/albums/1";
-  late Dio _dio;
-  BlocApi? blocApi;
-
-  Future<BlocApi?> fetchApi() async {
-    try {
-      Response response = await _dio.get(url);
-      print(response.statusCode);
-      BlocApi blocApi = BlocApi.fromJson(json.decode(response.toString()));
-      return blocApi;
-    } catch (e) {
-      print(e);
-    }
-    return blocApi;
-  }
-
- */
-
 }
-
-
 
 
 //bloc state
@@ -86,9 +64,6 @@ class Error extends MyApiState {
   @override
   List<Object> get props => [this.error];
 }
-
-
-
 
 //bloc event
 abstract class MyApiEvent extends Equatable {

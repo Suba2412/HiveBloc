@@ -20,8 +20,4 @@ Future<BlocApi?> processHome() async {
     return blocApi;
   }else{
     print("data not loaded");
-  }
-
-
-}
-}
+  }}}
